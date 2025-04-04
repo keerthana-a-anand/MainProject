@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Traffic Control Dashboard</title>
+    <link rel="stylesheet" href="style3.css" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .dashboard {
+            display: flex;
+            gap: 20px;
+        }
+        .camera-feed {
+            flex: 2;
+            background: #fff;
+            padding: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            position: relative;
+        }
+        .camera-feed img {
+            width: 100%;
+            transition: transform 1s ease-in-out, opacity 1s ease-in-out;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        .controls {
+            flex: 1;
+            background: #9bd4df;
+            padding: 20px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        .signal-mode, .hurry-call {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 10px;
+            padding: 10px;
+            background: #eaeaea;
+            border-radius: 5px;
+        }
+        .signal-mode label, .hurry-call label {
+            font-weight: bold;
+        }
+        .signal-mode button, .hurry-call button {
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+        }
+        .auto { background-color: green; color: white; }
+        .flash { background-color: red; color: white; }
+        .hurry-call button {
+            margin: 5px;
+            background-color: green;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        .time-bar {
+            display: flex;
+            width: 100%;
+            height: 20px;
+            border: 1px solid #ccc;
+            overflow: hidden;
+            margin-top: 5px;
+        }
+        .time-utilized {
+            background-color: #b33e57;
+            text-align: center;
+            line-height: 20px;
+        }
+        .time-remaining {
+            background-color: #ffffff;
+            text-align: center;
+            line-height: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Live Junction View for superuser</h2>
+    <a href="superview.php" style="position: absolute; top: 20px; right: 20px; background-color: #1098b9; color: white; padding: 10px 15px; text-decoration: none; border-radius: 5px;">🔙 Back</a>
+    <div class="dashboard">
+        <div class="camera-feed">
+            <img id="traffic-image" src="newnew.jpg" class="active" alt="Traffic Camera">
+        </div>
+        
+        <div class="controls">
+            <h3>Junction Details</h3>
+            <p><strong>Junction Name: <input type="text" id="junction-name"></strong></p>
+            <p><strong>Junction Mode: <input type="text"></strong></p>
+            <p><strong>Current Stage: <span id="current-stage"> 0</span></strong></p>
+            <p><strong>Current Timings: <span id="current-timing">0</span> sec</strong></p>
+
+            <table>
+                <tr><th>Stage</th><th>Allocated Time (sec)</th><th>Utilized Time (Sec)</th></tr>
+                <tr data-stage="1" data-utilized="0"><td>1</td><td>0</td><td><div class="time-bar"><div class="time-utilized" style="width: 0%"></div><div class="time-remaining" style="width: 100%"></div></div></td></tr>
+                <tr data-stage="2" data-utilized="0"><td>2</td><td>0</td><td><div class="time-bar"><div class="time-utilized" style="width: 0%"></div><div class="time-remaining" style="width: 100%"></div></div></td></tr>
+                <tr data-stage="3" data-utilized="0"><td>3</td><td>0</td><td><div class="time-bar"><div class="time-utilized" style="width: 0%"></div><div class="time-remaining" style="width: 100%"></div></div></td></tr>
+                <tr data-stage="4" data-utilized="0"><td>4</td><td>0</td><td><div class="time-bar"><div class="time-utilized" style="width: 0%"></div><div class="time-remaining" style="width: 100%"></div></div></td></tr>
+            </table>
+            <h3>Remote Administration</h3>
+            <label>Signal Mode:</label>
+            <button class="mode-btn">Auto</button>
+            <button class="mode-btn">Flash</button>
+            <br /><br />
+            <label>Hurry Call:</label>
+            <button class="hurry-btn">1</button>
+            <button class="hurry-btn">2</button>
+            <button class="hurry-btn">3</button>
+            <button class="hurry-btn">4</button>
+            <button class="hurry-btn">5</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Get junction name from URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const junctionName = urlParams.get("junction");
+
+            // Display junction name in the input field
+            if (junctionName) {
+                document.getElementById("junction-name").value = junctionName;
+            }
+        });
+    </script>
+</body>
+</html>
